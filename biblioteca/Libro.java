@@ -9,7 +9,7 @@ public class Libro {
     private Ubicacion ubicacion;
     private boolean disponible;
 
-    public Libro(String titulo, Autor autor, String editorial, int anioPublicacion, 
+    public Libro(String titulo, Autor autor, String editorial, int anioPublicacion,
                  Categoria genero, Ubicacion ubicacion, boolean disponible) {
         this.titulo = titulo;
         this.autor = autor;

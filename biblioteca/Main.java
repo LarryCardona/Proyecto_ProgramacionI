@@ -10,8 +10,29 @@ public class Main {
         Permiso permisoReserva = new Permiso("Hacer reserva", true);
         Permiso permisoGestion = new Permiso("Gestionar biblioteca", true);
 
+
         // -------------------------------
-        // 2️⃣ Crear usuarios
+        // 1️⃣ Crear autores
+        // -------------------------------
+        Autor autor1 = new Autor("Gabriel García Márquez", "Colombiano");
+
+
+        // -------------------------------
+        // 2️⃣ Crear ubicaciones
+        // -------------------------------
+        Ubicacion ubicacion1 = new Ubicacion("Estante A", "Fila 3", "Posición 5");
+
+
+        // -------------------------------
+        // 3️⃣ Crear usuario
+        // -------------------------------
+        Usuario usuario1 = new Usuario();
+        usuario1.actualizarDatos("María López", "3001234567", "maria@mail.com");
+        usuario1.agregarPermiso(permisoPrestamo);
+        usuario1.agregarPermiso(permisoReserva);
+
+        // -------------------------------
+        // 4️⃣ Crear usuarios
         // -------------------------------
         UsuarioComun usuario1 = new UsuarioComun();
         usuario1.actualizarDatos("Carlos Pérez", "3001112233", "carlos@mail.com", "UsuarioComún");
@@ -26,7 +47,7 @@ public class Main {
         bibliotecario.agregarPermiso(permisoGestion);
 
         // -------------------------------
-        // 3️⃣ Crear libros y categorías
+        // 5️⃣ Crear libros y categorías
         // -------------------------------
         Categoria categoria1 = new Categoria("Programación");
         Libro libro1 = new Libro("Aprende Java", "Juan Torres", categoria1, true);
@@ -36,21 +57,21 @@ public class Main {
         bibliotecario.registrarLibro(libro2);
 
         // -------------------------------
-        // 4️⃣ Crear préstamo
+        // 6️⃣ Crear préstamo
         // -------------------------------
         Prestamo prestamo1 = new Prestamo(libro1, usuario1, new Date());
         bibliotecario.registrarPrestamo(prestamo1);
         System.out.println("📚 Préstamo creado: " + prestamo1.getLibro().getTitulo());
 
         // -------------------------------
-        // 5️⃣ Crear reserva
+        // 7️⃣ Crear reserva
         // -------------------------------
         Reserva reserva1 = new Reserva(libro2, usuario1, new Date());
         bibliotecario.agregarReserva(reserva1);
         System.out.println("📘 Reserva registrada para: " + reserva1.getLibro().getTitulo());
 
         // -------------------------------
-        // 6️⃣ Crear multa
+        // 8️⃣ Crear multa
         // -------------------------------
         Multa multa1 = new Multa(usuario1, 2000f, new Date(), false);
         multa1.calcularMonto(prestamo1);
@@ -58,7 +79,7 @@ public class Main {
         System.out.println("💰 Multa creada para " + multa1.getUsuario().getNombre());
 
         // -------------------------------
-        // 7️⃣ Crear notificación
+        // 9️⃣ Crear notificación
         // -------------------------------
         Notificacion notificacion = new Notificacion(usuario1,
                 "Su préstamo está próximo a vencer.", new Date(), false);
@@ -68,7 +89,7 @@ public class Main {
         System.out.println("📩 Notificación enviada a: " + notificacion.getUsuario().getNombre());
 
         // -------------------------------
-        // 8️⃣ Mostrar estado general
+        // 🔟 Mostrar estado general
         // -------------------------------
         System.out.println("\n--- Estado del sistema ---");
         System.out.println("Usuario: " + usuario1.getNombre());
