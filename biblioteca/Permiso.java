@@ -3,6 +3,11 @@ package biblioteca;
 public class Permiso {
     private String nombre;
     private boolean estado;
+    
+    public Permiso(String nombre, boolean estado) {
+        this.nombre = nombre;
+        this.estado = estado;
+    }
 
     public String getNombre() {
         return nombre;

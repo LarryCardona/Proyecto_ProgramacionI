@@ -8,12 +8,12 @@ public class Reserva {
     private boolean activa;
     private Bibliotecario emisor;
 
-    public Reserva(Libro libro, Usuario usuario, Date fechaReserva) {
+    public Reserva(Libro libro, Usuario usuario, Date fechaReserva, Bibliotecario emisor) {
         this.libro = libro;
         this.usuario = usuario;
         this.fechaReserva = fechaReserva;
         this.activa = true;
-        this.emisor = null;
+        this.emisor = emisor;
     }
 
     public Libro getLibro() {
@@ -35,4 +35,9 @@ public class Reserva {
     public Bibliotecario getEmisor() {
         return emisor;
     }
+    
+    public void cancelarReserva() {
+        this.activa = false;
+    }
+
 }
