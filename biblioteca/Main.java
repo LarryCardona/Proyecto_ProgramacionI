@@ -18,7 +18,7 @@ public class Main {
         // 3. Crear categoría y libros
         Categoria categoria1 = new Categoria(
                 "Programación",
-                "Libros que enseñan conceptos, técnicas y buenas prácticas de programación en distintos lenguajes y paradigmas."
+                "Libros que enseñan conceptos y buenas prácticas."
         );
 
         Libro libro1 = new Libro(
@@ -46,9 +46,9 @@ public class Main {
                 "Carlos Pérez",
                 "3001112233",
                 "carlos@mail.com",
-                true,  // disponible
-                0,     // prestamosActivos
-                false, // multasActivas
+                true,
+                0,
+                false,
                 new ArrayList<>(Arrays.asList(permisoPrestamo, permisoReserva))
         );
 
@@ -57,13 +57,13 @@ public class Main {
                 "Laura Gómez",
                 "3105557788",
                 "laura@mail.com",
-                new ArrayList<>(), // libros
-                new ArrayList<>(), // categorias
-                new ArrayList<>(), // usuarios
-                new ArrayList<>(), // prestamos
-                new ArrayList<>(), // reservas
-                new ArrayList<>(), // multas
-                new ArrayList<>(Arrays.asList(permisoGestion)) // permisos
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(Arrays.asList(permisoGestion))
         );
 
         // 6. Registrar libros
@@ -112,12 +112,10 @@ public class Main {
         System.out.println("Reservas activas: " + bibliotecario.getReservas().size());
         System.out.println("Multas pendientes: " + bibliotecario.getMultas().size());
 
-        // === POLIMORFISMO ===
+        // === DEMOSTRACIÓN DE POLIMORFISMO ===
         System.out.println("\n--- Demostración de Polimorfismo ---");
 
-        // *** CAMBIO HECHO AQUÍ ***
-        UsuarioComun usuarioComunPoli = usuario1;  // ← antes era Usuario usuarioComunPoli
-
+        Usuario usuarioComunPoli = usuario1;   // correcto
         Usuario bibliotecarioPoli = bibliotecario;
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -130,7 +128,7 @@ public class Main {
             System.out.println("----------------------------");
         }
 
-        // Ejemplo de uso polimórfico en préstamo
+        // Préstamo polimórfico
         Libro libroDemo = new Libro(
                 "El Principito",
                 new Autor("Antoine de Saint-Exupéry", "Francés"),
@@ -142,10 +140,20 @@ public class Main {
         );
 
         Date fechaPrestamoDemo = new Date();
-        Date fechaDevolucionDemo = new Date(fechaPrestamoDemo.getTime() + 7 * 24 * 60 * 60 * 1000);
+        Date fechaDevolucionDemo = new Date(
+                fechaPrestamoDemo.getTime() + 7L * 24 * 60 * 60 * 1000
+        );
 
-        Prestamo prestamoDemo = new Prestamo(libroDemo, usuarioComunPoli, fechaPrestamoDemo, fechaDevolucionDemo, bibliotecario);
+        Prestamo prestamoDemo = new Prestamo(
+                libroDemo,
+                usuarioComunPoli,
+                fechaPrestamoDemo,
+                fechaDevolucionDemo,
+                bibliotecario
+        );
+
         bibliotecario.registrarPrestamo(prestamoDemo);
+
         System.out.println("Préstamo polimórfico creado por " + usuarioComunPoli.getNombre() +
                 " del libro " + prestamoDemo.getLibro().getTitulo());
 
