@@ -60,81 +60,71 @@ public class Bibliotecario extends Usuario {
     }
 
 
-    // --- Control de permisos en préstamo y reserva ---
+    // --- Control de permisos en préstamo ---
     public void registrarPrestamo(Prestamo prestamo) {
-        Usuario usuario = prestamo.getUsuario();
 
-        // Verifica si el usuario puede solicitar prestamo
-        if (usuario instanceof UsuarioComun) {
-            UsuarioComun uc = (UsuarioComun) usuario;
+        UsuarioComun usuario = prestamo.getUsuario(); // ← CAMBIO
 
-            boolean tienePermiso = false;
-            for (Permiso p : uc.getPrivilegios()) {
-                if (p.getNombre().equalsIgnoreCase("SolicitarPrestamo") && p.getEstado()) {
-                    tienePermiso = true;
-                    break;
-                }
+        boolean tienePermiso = false;
+        for (Permiso p : usuario.getPrivilegios()) {
+            if (p.getNombre().equalsIgnoreCase("SolicitarPrestamo") && p.getEstado()) {
+                tienePermiso = true;
+                break;
             }
-
-            if (!tienePermiso) {
-                System.out.println("El usuario tiene multas o prestamos activos. No puede solicitar mas prestamos.");
-            }
-
-            uc.incrementarPrestamos();
         }
 
+        if (!tienePermiso) {
+            System.out.println("El usuario tiene multas o prestamos activos. No puede solicitar más préstamos.");
+        }
+
+        usuario.incrementarPrestamos();
         prestamos.add(prestamo);
     }
 
+
+    // --- Control de permisos en reserva ---
     public void registrarReserva(Reserva reserva) {
-        Usuario usuario = reserva.getUsuario();
 
-        if (usuario instanceof UsuarioComun) {
-            UsuarioComun uc = (UsuarioComun) usuario;
+        UsuarioComun usuario = reserva.getUsuario(); // ← CAMBIO
 
-            boolean tienePermiso = false;
-            for (Permiso p : uc.getPrivilegios()) {
-                if (p.getNombre().equalsIgnoreCase("SolicitarPrestamo") && p.getEstado()) {
-                    tienePermiso = true;
-                    break;
-                }
+        boolean tienePermiso = false;
+        for (Permiso p : usuario.getPrivilegios()) {
+            if (p.getNombre().equalsIgnoreCase("SolicitarPrestamo") && p.getEstado()) {
+                tienePermiso = true;
+                break;
             }
+        }
 
-            if (!tienePermiso) {
-                System.out.println("El usuario tiene multas o prestamos activos. No puede hacer reservas.");
-            }
+        if (!tienePermiso) {
+            System.out.println("El usuario tiene multas o prestamos activos. No puede hacer reservas.");
         }
 
         reservas.add(reserva);
     }
 
+
+    // --- Registrar devolución ---
     public void registrarDevolucion(Prestamo prestamo) {
+
         if (prestamos.remove(prestamo)) {
-            Usuario usuario = prestamo.getUsuario();
-            if (usuario instanceof UsuarioComun) {
-                UsuarioComun uc = (UsuarioComun) usuario;
-                uc.disminuirPrestamos();
-            }
+            UsuarioComun usuario = prestamo.getUsuario(); // ← CAMBIO
+            usuario.disminuirPrestamos();
         }
     }
 
+
+    // --- Multas ---
     public void agregarMulta(Multa multa) {
         multas.add(multa);
 
-        Usuario usuario = multa.getUsuario();
-        if (usuario instanceof UsuarioComun) {
-            UsuarioComun uc = (UsuarioComun) usuario;
-            uc.activarMulta();
-        }
+        UsuarioComun usuario = multa.getUsuario(); // ← CAMBIO
+        usuario.activarMulta();
     }
 
     public void eliminarMulta(Multa multa) {
         if (multas.remove(multa)) {
-            Usuario usuario = multa.getUsuario();
-            if (usuario instanceof UsuarioComun) {
-                UsuarioComun uc = (UsuarioComun) usuario;
-                uc.limpiarMultas();
-            }
+            UsuarioComun usuario = multa.getUsuario(); // ← CAMBIO
+            usuario.limpiarMultas();
         }
     }
 

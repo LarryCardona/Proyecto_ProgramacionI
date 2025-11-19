@@ -1,16 +1,17 @@
 package biblioteca;
+
 import java.util.Date;
 
 public class Reserva {
     private Libro libro;
-    private Usuario usuario;
+    private UsuarioComun usuario;   // ← CAMBIO APLICADO
     private Date fechaReserva;
     private boolean activa;
     private Bibliotecario emisor;
 
-    public Reserva(Libro libro, Usuario usuario, Date fechaReserva, Bibliotecario emisor) {
+    public Reserva(Libro libro, UsuarioComun usuario, Date fechaReserva, Bibliotecario emisor) {  // ← CAMBIO APLICADO
         this.libro = libro;
-        this.usuario = usuario;
+        this.usuario = usuario;   // ← CAMBIO APLICADO
         this.fechaReserva = fechaReserva;
         this.activa = true;
         this.emisor = emisor;
@@ -20,7 +21,7 @@ public class Reserva {
         return libro;
     }
 
-    public Usuario getUsuario() {
+    public UsuarioComun getUsuario() {   // ← CAMBIO APLICADO
         return usuario;
     }
 
@@ -39,5 +40,4 @@ public class Reserva {
     public void cancelarReserva() {
         this.activa = false;
     }
-
 }

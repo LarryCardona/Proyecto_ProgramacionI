@@ -70,7 +70,7 @@ public class Main {
         bibliotecario.registrarLibro(libro1);
         bibliotecario.registrarLibro(libro2);
 
-        // 7. Registrar préstamo (ajuste: registrarPrestamo devuelve void)
+        // 7. Registrar préstamo
         Calendar calendar = Calendar.getInstance();
         Date fechaPrestamo = calendar.getTime();
         calendar.add(Calendar.DAY_OF_MONTH, 7);
@@ -80,7 +80,7 @@ public class Main {
         bibliotecario.registrarPrestamo(prestamo1);
         System.out.println("Préstamo creado: " + prestamo1.getLibro().getTitulo());
 
-        // 8. Registrar reserva (ajuste: registrarReserva devuelve void)
+        // 8. Registrar reserva
         Reserva reserva1 = new Reserva(libro2, usuario1, new Date(), bibliotecario);
         bibliotecario.registrarReserva(reserva1);
         System.out.println("Reserva registrada para: " + reserva1.getLibro().getTitulo());
@@ -112,14 +112,14 @@ public class Main {
         System.out.println("Reservas activas: " + bibliotecario.getReservas().size());
         System.out.println("Multas pendientes: " + bibliotecario.getMultas().size());
 
-        // === BLOQUE AÑADIDO: Demostración de POLIMORFISMO ===
+        // === POLIMORFISMO ===
         System.out.println("\n--- Demostración de Polimorfismo ---");
 
-        // Variables del tipo padre Usuario
-        Usuario usuarioComunPoli = usuario1;
+        // *** CAMBIO HECHO AQUÍ ***
+        UsuarioComun usuarioComunPoli = usuario1;  // ← antes era Usuario usuarioComunPoli
+
         Usuario bibliotecarioPoli = bibliotecario;
 
-        // Lista polimórfica
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(usuarioComunPoli);
         usuarios.add(bibliotecarioPoli);
@@ -145,7 +145,7 @@ public class Main {
         Date fechaDevolucionDemo = new Date(fechaPrestamoDemo.getTime() + 7 * 24 * 60 * 60 * 1000);
 
         Prestamo prestamoDemo = new Prestamo(libroDemo, usuarioComunPoli, fechaPrestamoDemo, fechaDevolucionDemo, bibliotecario);
-        bibliotecario.registrarPrestamo(prestamoDemo); // se usa prestamoDemo correctamente
+        bibliotecario.registrarPrestamo(prestamoDemo);
         System.out.println("Préstamo polimórfico creado por " + usuarioComunPoli.getNombre() +
                 " del libro " + prestamoDemo.getLibro().getTitulo());
 

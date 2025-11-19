@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class Prestamo {
     private Libro libro;
-    private Usuario usuario;
+    private UsuarioComun usuario;   // ← CAMBIO APLICADO
     private Date fechaPrestamo;
     private Date fechaDevolucion;
     private boolean devuelto;
     private Bibliotecario emisor;
 
-    public Prestamo(Libro libro, Usuario usuario, Date fechaPrestamo, Date fechaDevolucion, Bibliotecario emisor) {
+    public Prestamo(Libro libro, UsuarioComun usuario, Date fechaPrestamo, Date fechaDevolucion, Bibliotecario emisor) {
         this.libro = libro;
-        this.usuario = usuario;
+        this.usuario = usuario;   // ← CAMBIO APLICADO
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
         this.devuelto = false;
@@ -20,7 +20,7 @@ public class Prestamo {
     }
 
     public Libro getLibro() { return libro; }
-    public Usuario getUsuario() { return usuario; }
+    public UsuarioComun getUsuario() { return usuario; }  // ← CAMBIO APLICADO
     public Date getFechaPrestamo() { return fechaPrestamo; }
     public Date getFechaDevolucion() { return fechaDevolucion; }
     public boolean isDevuelto() { return devuelto; }
@@ -34,10 +34,6 @@ public class Prestamo {
         this.devuelto = true;
         libro.actualizarDisponibilidad(true);
 
-        // ✅ Compatible con Java 8 / 11
-        if (usuario instanceof UsuarioComun) {
-            UsuarioComun uc = (UsuarioComun) usuario;
-            uc.disminuirPrestamos();
-        }
+        usuario.disminuirPrestamos();  // ← Ya no se necesita instanceof (es siempre UsuarioComun)
     }
 }
